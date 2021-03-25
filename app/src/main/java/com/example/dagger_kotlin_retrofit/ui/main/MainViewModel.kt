@@ -1,26 +1,21 @@
-package com.example.dagger_kotlin_retrofit.ui
+package com.example.dagger_kotlin_retrofit.ui.main
 
 import android.os.Handler
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.dagger_kotlin_retrofit.base.BaseViewModel
 import com.example.dagger_kotlin_retrofit.network.IRepository
+import com.example.dagger_kotlin_retrofit.ui.main2.MainActivity2
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.core.SingleObserver
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlin.random.Random
 
 class MainViewModel : BaseViewModel {
-    private val TAG: String = "MainViewModel";
     var repositoryImpl: IRepository;
-    var compositeDisposable: CompositeDisposable = CompositeDisposable();
 
     constructor(repositoryImpl: IRepository) : super() {
-        Log.e(TAG, "contrutor");
         this.repositoryImpl = repositoryImpl;
     };
     lateinit var dem: MutableLiveData<Int>;
@@ -28,9 +23,6 @@ class MainViewModel : BaseViewModel {
         repositoryImpl.getData()
             .map {
                 "${it}  object"
-            }
-            .flatMap {
-                Single.just(it);
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -55,6 +47,7 @@ class MainViewModel : BaseViewModel {
         Handler().postDelayed({
             getData();
             showMess.postValue("Loaded");
+            changeScreen.postValue(MainActivity2::class.java);
         }, 3000);
     }
 
@@ -66,10 +59,5 @@ class MainViewModel : BaseViewModel {
         super.initData()
         dem = MutableLiveData();
         dem.postValue(1);
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.dispose();
     }
 }

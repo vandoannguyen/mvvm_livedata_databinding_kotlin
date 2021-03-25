@@ -1,4 +1,4 @@
-package com.example.dagger_kotlin_retrofit.ui
+package com.example.dagger_kotlin_retrofit.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

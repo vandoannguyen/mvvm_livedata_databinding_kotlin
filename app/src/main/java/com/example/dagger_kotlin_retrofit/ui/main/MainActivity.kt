@@ -1,6 +1,7 @@
-package com.example.dagger_kotlin_retrofit.ui
+package com.example.dagger_kotlin_retrofit.ui.main
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -41,6 +42,12 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 }
             }
         )
+        viewModel.changeScreen.observe(this, Observer { screen ->
+            run {
+                startActivity(Intent(this@MainActivity, screen));
+            }
+        }
+        );
     }
 
     override fun createViewModel(): MainViewModel {

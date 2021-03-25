@@ -6,12 +6,9 @@ import io.reactivex.rxjava3.core.Single
 
 class RepositoryImpl : IRepository {
     companion object {
-        lateinit var INSTANCE: RepositoryImpl;
+        private var INSTANCE: RepositoryImpl? = null;
         fun getInstance(): RepositoryImpl {
-//            if (INSTANCE == null) {
-                INSTANCE = RepositoryImpl();
-//            }
-            return INSTANCE;
+            return INSTANCE ?: RepositoryImpl();
         }
     }
 
@@ -21,8 +18,6 @@ class RepositoryImpl : IRepository {
         api = ApiHelperImpl();
     }
 
-
-    //    lateinit var share: ;
     override fun getData(): Single<String> {
         return api.getData();
     }
