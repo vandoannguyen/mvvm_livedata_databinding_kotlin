@@ -3,7 +3,6 @@ package com.example.dagger_kotlin_retrofit.ui.main2
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.dagger_kotlin_retrofit.R
@@ -12,14 +11,26 @@ import com.example.dagger_kotlin_retrofit.databinding.ActivityMain3Binding
 import com.example.dagger_kotlin_retrofit.network.IRepository
 import com.example.dagger_kotlin_retrofit.network.RepositoryImpl
 
-class MainActivity2 : BaseActivity<MainActivity2ViewModel>() {
-    lateinit var binding: ActivityMain3Binding;
+class MainActivity2 : BaseActivity<MainActivity2ViewModel, ActivityMain3Binding>() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViewModel();
     }
 
-    private fun initViewModel() {
+    override fun createViewModel(): MainActivity2ViewModel {
+        var iRepositoryImpl: IRepository = RepositoryImpl();
+        var main2ViewModelFactory = Main2ViewModelFactory(iRepositoryImpl);
+        return ViewModelProvider(
+            this,
+            main2ViewModelFactory
+        ).get(MainActivity2ViewModel::class.java);
+    }
+
+    override fun setContentLayout(): Int {
+        return R.layout.activity_main3;
+    }
+
+    override fun initEventModel() {
         viewModel.changeScreen.observe(this, Observer { screen ->
             run {
                 startActivity(Intent(this, screen));
@@ -32,25 +43,7 @@ class MainActivity2 : BaseActivity<MainActivity2ViewModel>() {
         })
         viewModel.isLoading.observe(this, Observer { isLoading ->
             kotlin.run {
-
             }
         })
-    }
-
-    override fun initDataBinding() {
-        binding = DataBindingUtil.setContentView(
-            this, R.layout.activity_main3
-        )
-        binding.lifecycleOwner = this;
-        binding.viewModel = viewModel;
-    }
-
-    override fun createViewModel(): MainActivity2ViewModel {
-        var iRepositoryImpl: IRepository = RepositoryImpl();
-        var main2ViewModelFactory: Main2ViewModelFactory = Main2ViewModelFactory(iRepositoryImpl);
-        return ViewModelProvider(
-            this,
-            main2ViewModelFactory
-        ).get(MainActivity2ViewModel::class.java);
     }
 }
