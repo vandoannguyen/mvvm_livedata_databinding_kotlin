@@ -11,4 +11,10 @@
         android:layout_height="wrap_content"
         android:text="100"
         android:textColor="@android:color/black" />
+    <TextView
+        android:id="@+id/item_txt_test_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="100"
+        android:textColor="@android:color/black" />
 </LinearLayout>

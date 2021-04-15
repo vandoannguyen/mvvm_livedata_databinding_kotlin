@@ -14,24 +14,10 @@ class BlankFragment : BaseFragment<BlankViewModel, BlankFragmentBinding>() {
     }
 
     override fun initEventModel() {
-        viewModel.showMess.observe(this, { mess ->
-            run {
-                Toast.makeText(context, mess, Toast.LENGTH_SHORT);
-            }
-        })
-        viewModel.changeScreen.observe(this, { screen ->
-            run {
-                startActivity(Intent(context, screen));
-            }
-        })
-        viewModel.isLoading.observe(this, { isLoading ->
-            kotlin.run {
 
-            }
-        })
     }
 
-    override fun getContentView(): Int {
+    override fun createContentView(): Int {
         return R.layout.blank_fragment;
     }
 }

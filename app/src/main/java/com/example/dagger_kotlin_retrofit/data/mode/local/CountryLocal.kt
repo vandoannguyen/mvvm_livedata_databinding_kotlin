@@ -10,6 +10,4 @@ data class CountryLocal(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "name")
     val name: String?
-) {
-
-}
+)

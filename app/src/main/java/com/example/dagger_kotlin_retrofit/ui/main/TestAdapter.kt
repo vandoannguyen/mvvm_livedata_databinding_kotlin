@@ -5,18 +5,17 @@ import android.view.View
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseAdapter
 import com.example.dagger_kotlin_retrofit.base.BaseHolder
+import com.example.dagger_kotlin_retrofit.data.mode.local.UserLocal
+import com.example.dagger_kotlin_retrofit.data.mode.network.User
 import kotlinx.android.synthetic.main.itemtest.view.*
 
-class TestAdapter(listData: List<String>) : BaseAdapter<String, TestAdapter.ViewHolder>(listData) {
-    class ViewHolder(itemView: View) : BaseHolder<String>(itemView) {
-    }
-
-
+class TestAdapter(listData: List<User>) : BaseAdapter<User, TestAdapter.ViewHolder>(listData) {
+    class ViewHolder(itemView: View) : BaseHolder<User>(itemView)
     override fun getLayout(): Int {
         return R.layout.itemtest;
     }
 
-    override fun onItemClick(data: String) {
+    override fun onItemClick(data: User) {
         Log.e("TAG1111", "onItemClick:")
     }
 
@@ -24,8 +23,9 @@ class TestAdapter(listData: List<String>) : BaseAdapter<String, TestAdapter.View
         return ViewHolder(view);
     }
 
-    override fun onBind(holder: BaseHolder<String>, data: String) {
-        holder.itemView.item_txt_test.text = data;
+    override fun onBind(holder: BaseHolder<User>, data: User) {
+        holder.itemView.item_txt_test.text = data.login;
+        holder.itemView.item_txt_test_name.text = data.name ?: "loading...";
     }
 
 }

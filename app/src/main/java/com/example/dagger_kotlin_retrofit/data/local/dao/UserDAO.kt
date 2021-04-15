@@ -1,7 +1,9 @@
 package com.example.dagger_kotlin_retrofit.data.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.dagger_kotlin_retrofit.data.mode.local.UserLocal
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 
@@ -12,20 +14,17 @@ interface UserDAO {
     }
 
     @Query("SELECT*FROM $USER_TABLE_NAME")
-    suspend fun getUser(): Single<List<UserLocal>>;
+    fun getUser(): List<UserLocal>;
 
     @Query("SELECT*FROM $USER_TABLE_NAME where ${"id"} = (:id)")
-    suspend fun getUser(id: Int): Single<UserLocal>;
+    fun getUser(id: Int): UserLocal;
 
     @Insert
-    suspend fun insert(user: UserLocal): Single<Void>;
-
-    @Insert
-    suspend fun insert(users: List<UserLocal>): Single<Void>;
+    fun insert(vararg user: UserLocal): Void;
 
     @Update
-    suspend fun update(user: UserLocal): Single<Boolean>;
+    fun update(user: UserLocal): Int;
 
     @Delete
-    suspend fun delete(user: UserLocal): Single<Void>;
+    fun delete(user: UserLocal): Int;
 }

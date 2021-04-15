@@ -10,14 +10,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseActivity
+import com.example.dagger_kotlin_retrofit.base.BaseViewModelFactory
 import com.example.dagger_kotlin_retrofit.databinding.ActivityMainBinding
 import com.example.dagger_kotlin_retrofit.data.RepositoryImpl
+import com.example.dagger_kotlin_retrofit.data.mode.local.UserLocal
+import com.example.dagger_kotlin_retrofit.data.mode.network.User
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private lateinit var loadDialog: ProgressDialog;
-    private var list: List<String> = arrayListOf("1", "2", "3", "4", "5");
+    private var list: List<User> = ArrayList();
     private lateinit var adapter: TestAdapter;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +37,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun createViewModel(): MainViewModel {
         var repositoryImpl: RepositoryImpl = RepositoryImpl.getInstance(applicationContext);
-        var mainViewModelFactory = MainViewModelFactory(repositoryImpl);
-        return ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java);
+        return ViewModelProvider(
+            this,
+            BaseViewModelFactory<MainViewModel>(MainViewModel(repositoryImpl))
+        ).get(MainViewModel::class.java);
     }
 
     override fun setContentLayout(): Int {
@@ -42,30 +48,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun initEventModel() {
-        viewModel.isLoading.observe(this, { isLoading ->
+        super.initEventModel()
+        viewModel.listUser.observe(this, {
+            list = it;
             run {
-                if (isLoading) {
-                    loadDialog = ProgressDialog(this);
-                    loadDialog.show();
-                } else {
-                    loadDialog.dismiss();
-                }
+                adapter.setList(list);
             }
-        });
-        viewModel.showMess.observe(
-            this, { mess ->
-                run {
-                    Log.e("MAIN1", "initViewModel: ");
-                    Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
-                }
-            }
-        )
-        viewModel.changeScreen.observe(this, { screen ->
-            run {
-                startActivity(Intent(this@MainActivity, screen));
-            }
-        }
-        );
-        viewModel
+        })
     }
 }

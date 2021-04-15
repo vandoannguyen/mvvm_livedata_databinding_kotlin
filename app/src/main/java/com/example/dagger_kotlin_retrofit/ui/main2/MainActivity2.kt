@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseActivity
+import com.example.dagger_kotlin_retrofit.base.BaseViewModelFactory
 import com.example.dagger_kotlin_retrofit.databinding.ActivityMain3Binding
 import com.example.dagger_kotlin_retrofit.data.IRepository
 import com.example.dagger_kotlin_retrofit.data.RepositoryImpl
@@ -18,11 +19,10 @@ class MainActivity2 : BaseActivity<MainActivity2ViewModel, ActivityMain3Binding>
     }
 
     override fun createViewModel(): MainActivity2ViewModel {
-        var iRepositoryImpl: IRepository = RepositoryImpl(applicationContext);
-        var main2ViewModelFactory = Main2ViewModelFactory(iRepositoryImpl);
+        var iRepositoryImpl: IRepository = RepositoryImpl.getInstance(applicationContext);
         return ViewModelProvider(
             this,
-            main2ViewModelFactory
+            BaseViewModelFactory<MainActivity2ViewModel>(MainActivity2ViewModel(iRepositoryImpl))
         ).get(MainActivity2ViewModel::class.java);
     }
 
@@ -31,19 +31,6 @@ class MainActivity2 : BaseActivity<MainActivity2ViewModel, ActivityMain3Binding>
     }
 
     override fun initEventModel() {
-        viewModel.changeScreen.observe(this, Observer { screen ->
-            run {
-                startActivity(Intent(this, screen));
-            }
-        })
-        viewModel.showMess.observe(this, Observer { mess ->
-            run {
-                Toast.makeText(this, mess, Toast.LENGTH_SHORT);
-            }
-        })
-        viewModel.isLoading.observe(this, Observer { isLoading ->
-            kotlin.run {
-            }
-        })
+        super.initEventModel()
     }
 }
