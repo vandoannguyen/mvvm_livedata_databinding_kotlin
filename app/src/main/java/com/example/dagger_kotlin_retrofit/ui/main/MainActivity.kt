@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseActivity
 import com.example.dagger_kotlin_retrofit.databinding.ActivityMainBinding
-import com.example.dagger_kotlin_retrofit.network.RepositoryImpl
+import com.example.dagger_kotlin_retrofit.data.RepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -32,7 +32,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun createViewModel(): MainViewModel {
-        var repositoryImpl: RepositoryImpl = RepositoryImpl.getInstance();
+        var repositoryImpl: RepositoryImpl = RepositoryImpl.getInstance(applicationContext);
         var mainViewModelFactory = MainViewModelFactory(repositoryImpl);
         return ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java);
     }
@@ -60,11 +60,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 }
             }
         )
-        viewModel.changeScreen.observe(this, Observer { screen ->
+        viewModel.changeScreen.observe(this, { screen ->
             run {
                 startActivity(Intent(this@MainActivity, screen));
             }
         }
         );
+        viewModel
     }
 }

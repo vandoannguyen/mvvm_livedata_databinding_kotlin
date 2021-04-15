@@ -2,7 +2,7 @@ package com.example.dagger_kotlin_retrofit.ui.main2
 
 import androidx.lifecycle.MutableLiveData
 import com.example.dagger_kotlin_retrofit.base.BaseViewModel
-import com.example.dagger_kotlin_retrofit.network.IRepository
+import com.example.dagger_kotlin_retrofit.data.IRepository
 
 class MainActivity2ViewModel : BaseViewModel {
     var iRepository: IRepository;

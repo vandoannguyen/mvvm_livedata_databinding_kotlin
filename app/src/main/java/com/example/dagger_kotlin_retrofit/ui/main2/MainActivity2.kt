@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseActivity
 import com.example.dagger_kotlin_retrofit.databinding.ActivityMain3Binding
-import com.example.dagger_kotlin_retrofit.network.IRepository
-import com.example.dagger_kotlin_retrofit.network.RepositoryImpl
+import com.example.dagger_kotlin_retrofit.data.IRepository
+import com.example.dagger_kotlin_retrofit.data.RepositoryImpl
 
 class MainActivity2 : BaseActivity<MainActivity2ViewModel, ActivityMain3Binding>() {
 
@@ -18,7 +18,7 @@ class MainActivity2 : BaseActivity<MainActivity2ViewModel, ActivityMain3Binding>
     }
 
     override fun createViewModel(): MainActivity2ViewModel {
-        var iRepositoryImpl: IRepository = RepositoryImpl();
+        var iRepositoryImpl: IRepository = RepositoryImpl(applicationContext);
         var main2ViewModelFactory = Main2ViewModelFactory(iRepositoryImpl);
         return ViewModelProvider(
             this,

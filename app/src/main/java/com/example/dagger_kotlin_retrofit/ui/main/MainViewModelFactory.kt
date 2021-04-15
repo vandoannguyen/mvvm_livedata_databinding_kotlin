@@ -2,8 +2,8 @@ package com.example.dagger_kotlin_retrofit.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.dagger_kotlin_retrofit.network.IRepository
-import com.example.dagger_kotlin_retrofit.network.RepositoryImpl
+import com.example.dagger_kotlin_retrofit.data.IRepository
+import com.example.dagger_kotlin_retrofit.data.RepositoryImpl
 
 
 class MainViewModelFactory : ViewModelProvider.Factory {

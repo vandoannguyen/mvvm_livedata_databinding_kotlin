@@ -1,4 +1,4 @@
-package com.example.dagger_kotlin_retrofit.network.api
+package com.example.dagger_kotlin_retrofit.data.network
 
 import io.reactivex.rxjava3.core.Single
 
