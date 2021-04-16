@@ -12,20 +12,30 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.dagger_kotlin_retrofit.BR
+import com.example.dagger_kotlin_retrofit.MyApplication
 import com.example.dagger_kotlin_retrofit.common.DialogLoading
 import com.example.dagger_kotlin_retrofit.data.RepositoryImpl
+import com.example.dagger_kotlin_retrofit.di.component.ActivityComponent
+import com.example.dagger_kotlin_retrofit.di.component.ApplicationComponent
+import com.example.dagger_kotlin_retrofit.di.component.DaggerActivityComponent
+import com.example.dagger_kotlin_retrofit.di.component.DaggerFragmentComponent
+import com.example.dagger_kotlin_retrofit.di.module.ActivityModule
 import com.example.dagger_kotlin_retrofit.ui.main.MainViewModel
+import dagger.android.DaggerActivity
+import javax.inject.Inject
 
 
 abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompatActivity() {
     val TAG: String = "BaseActivity";
+
+    @Inject
     lateinit var viewModel: VM;
     lateinit var binding: BD;
     var layoutView: Int = -1;
     var dialogLoading: DialogLoading? = null;
     override fun onCreate(savedInstanceState: Bundle?) {
+        performDependencyInjection(getActivityComponent());
         super.onCreate(savedInstanceState)
-        viewModel = createViewModel();
         initDataBinding();
         initEventModel();
     }
@@ -71,6 +81,12 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
             }
         })
     };
-    abstract fun createViewModel(): VM;
+    private fun getActivityComponent(): ActivityComponent {
+        return DaggerActivityComponent.builder()
+            .applicationComponent((application as MyApplication).applicationComponent)
+            .activityModule(ActivityModule(this))
+            .build();
+    }
 
+    abstract fun performDependencyInjection(activityComponent: ActivityComponent);
 }

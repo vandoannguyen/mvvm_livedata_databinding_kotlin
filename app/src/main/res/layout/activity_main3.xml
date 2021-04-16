@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.dagger_kotlin_retrofit.ui.main2.MainActivity2ViewModel" />
+            type="com.example.dagger_kotlin_retrofit.ui.main2.Main2ViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

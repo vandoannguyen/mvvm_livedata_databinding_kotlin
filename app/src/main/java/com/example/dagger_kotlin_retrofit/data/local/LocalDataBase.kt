@@ -8,6 +8,7 @@ import com.example.dagger_kotlin_retrofit.data.local.dao.CountryDAO
 import com.example.dagger_kotlin_retrofit.data.local.dao.UserDAO
 import com.example.dagger_kotlin_retrofit.data.mode.local.CountryLocal
 import com.example.dagger_kotlin_retrofit.data.mode.local.UserLocal
+import javax.inject.Inject
 
 
 @Database(
@@ -21,9 +22,13 @@ abstract class LocalDataBase : RoomDatabase() {
 
     companion object {
         val DATA_BASE_NAME: String = "LocalDataBase"
-        private  var database: LocalDataBase? = null;
+        private var database: LocalDataBase? = null;
         fun getDataBase(context: Context): LocalDataBase {
-            return database?:Room.databaseBuilder(context, LocalDataBase::class.java, DATA_BASE_NAME).fallbackToDestructiveMigration().build();
+            return database ?: Room.databaseBuilder(
+                context,
+                LocalDataBase::class.java,
+                DATA_BASE_NAME
+            ).fallbackToDestructiveMigration().build();
         }
     }
 }

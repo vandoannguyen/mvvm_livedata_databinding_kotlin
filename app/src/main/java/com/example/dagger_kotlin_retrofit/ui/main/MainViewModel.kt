@@ -13,12 +13,15 @@ import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.Calendar;
+import javax.inject.Inject
 import kotlin.random.Random
 
 class MainViewModel : BaseViewModel {
     private val TAG: String = "MainViewModel";
     var repositoryImpl: IRepository;
 
+
+    @Inject
     constructor(repositoryImpl: IRepository) : super() {
         this.repositoryImpl = repositoryImpl;
     };
@@ -110,7 +113,7 @@ class MainViewModel : BaseViewModel {
     fun clickList() {
 //        showMess.postValue("Loading");
 //        getData();
-        Log.e(TAG, "clickList: " )
+        Log.e(TAG, "clickList: ")
         isLoading.postValue(true);
     }
 

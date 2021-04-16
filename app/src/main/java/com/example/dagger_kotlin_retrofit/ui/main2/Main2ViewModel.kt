@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.dagger_kotlin_retrofit.base.BaseViewModel
 import com.example.dagger_kotlin_retrofit.data.IRepository
 
-class MainActivity2ViewModel : BaseViewModel {
+class Main2ViewModel : BaseViewModel {
     var iRepository: IRepository;
     lateinit var demo: MutableLiveData<String>;
 
