@@ -11,21 +11,23 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
 class RepositoryImpl : IRepository {
-    companion object {
-        private var INSTANCE: RepositoryImpl? = null;
-        fun getInstance(context: Context): RepositoryImpl {
-            return INSTANCE ?: RepositoryImpl(context);
-        }
-    }
+//    companion object {
+//        private var INSTANCE: RepositoryImpl? = null;
+////        fun getInstance(context: Context): RepositoryImpl {
+////            return INSTANCE ?: RepositoryImpl(context);
+////        }
+//    }
 
     var api: IApiHelper;
     var local: ILocalDataHelper;
 
-    constructor(context: Context) {
-        api = ApiHelperImpl();
-        local = LocalDataHelperImpl(context);
+    @Inject
+    constructor(apiHelperImpl: IApiHelper, iLocalDataHelper: ILocalDataHelper) {
+        this.api = apiHelperImpl;
+        this.local = iLocalDataHelper;
     }
 
     override fun getData(user: String?): Observable<User> {
