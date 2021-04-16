@@ -5,7 +5,11 @@ import androidx.room.Room
 import com.example.dagger_kotlin_retrofit.MyApplication
 import com.example.dagger_kotlin_retrofit.data.IRepository
 import com.example.dagger_kotlin_retrofit.data.RepositoryImpl
+import com.example.dagger_kotlin_retrofit.data.local.ILocalDataHelper
 import com.example.dagger_kotlin_retrofit.data.local.LocalDataBase
+import com.example.dagger_kotlin_retrofit.data.local.LocalDataHelperImpl
+import com.example.dagger_kotlin_retrofit.data.network.ApiHelperImpl
+import com.example.dagger_kotlin_retrofit.data.network.IApiHelper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -26,10 +30,23 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun providerRepository(context: Context): IRepository {
-        return RepositoryImpl(context);
+    fun providerRepository(
+        iApiHelper: IApiHelper,
+        iLocalDataHelper: ILocalDataHelper
+    ): IRepository {
+        return RepositoryImpl(iApiHelper, iLocalDataHelper);
     }
 
+    @Provides
+    @Singleton
+    fun providerApiHelper(): IApiHelper {
+        return ApiHelperImpl();
+    }
+    @Provides
+    @Singleton
+    fun providerLocalHelper(context:Context):ILocalDataHelper{
+        return LocalDataHelperImpl(context);
+    }
     @Provides
     @Singleton
     fun providerLocalDatabase(context: Context, databaseName: String): LocalDataBase {

@@ -11,16 +11,16 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.example.dagger_kotlin_retrofit.BR
+import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragment() {
     lateinit var binding: BD;
+
+    @Inject
     lateinit var viewModel: VM;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = createViewModel();
     }
-
-    abstract fun createViewModel(): VM;
 
     override fun onCreateView(
         inflater: LayoutInflater,

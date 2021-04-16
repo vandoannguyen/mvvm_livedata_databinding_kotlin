@@ -111,10 +111,7 @@ class MainViewModel : BaseViewModel {
     }
 
     fun clickList() {
-//        showMess.postValue("Loading");
-//        getData();
-        Log.e(TAG, "clickList: ")
-        isLoading.postValue(true);
+        getData();
     }
 
     private fun getRamdomtext(): Int? {

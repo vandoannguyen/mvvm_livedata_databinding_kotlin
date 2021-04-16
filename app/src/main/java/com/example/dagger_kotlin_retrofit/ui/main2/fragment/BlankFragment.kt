@@ -9,12 +9,8 @@ import com.example.dagger_kotlin_retrofit.databinding.BlankFragmentBinding
 
 class BlankFragment : BaseFragment<BlankViewModel, BlankFragmentBinding>() {
 
-    override fun createViewModel(): BlankViewModel {
-        return ViewModelProviders.of(this).get(BlankViewModel::class.java)
-    }
-
     override fun initEventModel() {
-
+        super.initEventModel()
     }
 
     override fun createContentView(): Int {
