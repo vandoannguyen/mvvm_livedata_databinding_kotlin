@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="viewModel"
-            type="com.example.dagger_kotlin_retrofit.ui.main2.fragment.BlankViewModel" />
+            type="com.example.dagger_kotlin_retrofit.ui.main2.fragment3.Fragment3ViewModel" />
     </data>
+
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main2.fragment.BlankFragment">
+        tools:context=".ui.main2.fragment3.Fragment3">
 
+        <!-- TODO: Update blank fragment layout -->
         <TextView
+            android:id="@+id/txtClick"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello" />
-
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/hello_blank_fragment" />
     </FrameLayout>
 </layout>

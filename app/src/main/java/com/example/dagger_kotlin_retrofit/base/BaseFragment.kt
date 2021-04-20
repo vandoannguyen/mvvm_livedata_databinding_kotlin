@@ -2,6 +2,7 @@ package com.example.dagger_kotlin_retrofit.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragment() {
     lateinit var binding: BD;
+    private val TAG = "BaseFragment";
 
     @Inject
     lateinit var viewModel: VM;
@@ -71,7 +73,7 @@ abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragme
         })
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             kotlin.run {
-
+                Log.e(TAG, "initEventModel: ")
             }
         })
     }

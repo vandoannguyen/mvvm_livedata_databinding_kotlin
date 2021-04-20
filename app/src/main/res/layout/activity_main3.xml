@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,22 +9,11 @@
             type="com.example.dagger_kotlin_retrofit.ui.main2.Main2ViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <EditText
-            android:text="@={viewModel.edtContent}"
-            android:id="@+id/editMain2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:text="submit"
-            android:onClick="@{()->viewModel.clickSubmit()}"
-            android:id="@+id/btnClickMain2"
-            android:layout_width="100dp"
-            android:layout_height="50dp"/>
-    </LinearLayout>
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main2_nav_graph" />
 </layout>

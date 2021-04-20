@@ -20,8 +20,8 @@ class Main2ViewModel : BaseViewModel {
         submitContent = MutableLiveData();
     }
 
-    fun clickSubmit() {
-        Log.e("TAG", "clickSubmit: ")
-        submitContent.postValue(edtContent.value);
+    fun setEdtValue(s: String) {
+        edtContent.postValue(s);
     }
+
 }
