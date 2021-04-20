@@ -42,11 +42,13 @@ class ApplicationModule {
     fun providerApiHelper(): IApiHelper {
         return ApiHelperImpl();
     }
+
     @Provides
     @Singleton
-    fun providerLocalHelper(context:Context):ILocalDataHelper{
+    fun providerLocalHelper(context: Context): ILocalDataHelper {
         return LocalDataHelperImpl(context);
     }
+
     @Provides
     @Singleton
     fun providerLocalDatabase(context: Context, databaseName: String): LocalDataBase {
@@ -56,6 +58,7 @@ class ApplicationModule {
     }
 
     @Provides
+    @Singleton
     fun provideDatabaseName(): String? {
         return LocalDataBase.DATA_BASE_NAME
     }

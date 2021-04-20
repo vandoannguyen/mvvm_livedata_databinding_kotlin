@@ -40,7 +40,10 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
         initEventModel();
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        performDependencyInjection(getActivityComponent());
+    }
     fun initDataBinding() {
         layoutView = setContentLayout();
         binding = DataBindingUtil.setContentView(this, this.layoutView);
@@ -57,6 +60,7 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
     open fun initEventModel() {
         viewModel.changeScreen.observe(this, Observer { screen ->
             run {
+                Log.e(TAG, "initEventModel:changeScreen " )
                 startActivity(Intent(this, screen));
             }
         })
@@ -89,4 +93,8 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
     }
 
     abstract fun performDependencyInjection(activityComponent: ActivityComponent);
+    override fun onDestroy() {
+        super.onDestroy()
+        BaseViewModelFactory.removeViewModel(viewModel)
+    }
 }

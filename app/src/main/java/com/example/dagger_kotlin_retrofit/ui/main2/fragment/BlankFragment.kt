@@ -1,11 +1,9 @@
 package com.example.dagger_kotlin_retrofit.ui.main2.fragment
 
-import android.content.Intent
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseFragment
 import com.example.dagger_kotlin_retrofit.databinding.BlankFragmentBinding
+import com.example.dagger_kotlin_retrofit.di.component.FragmentComponent
 
 class BlankFragment : BaseFragment<BlankViewModel, BlankFragmentBinding>() {
 
@@ -15,5 +13,9 @@ class BlankFragment : BaseFragment<BlankViewModel, BlankFragmentBinding>() {
 
     override fun createContentView(): Int {
         return R.layout.blank_fragment;
+    }
+
+    override fun performDependencyInjection(fragmentComponent: FragmentComponent) {
+        fragmentComponent.inject(this);
     }
 }

@@ -1,12 +1,14 @@
 package com.example.dagger_kotlin_retrofit.ui.main2
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.dagger_kotlin_retrofit.base.BaseViewModel
 import com.example.dagger_kotlin_retrofit.data.IRepository
 
 class Main2ViewModel : BaseViewModel {
     var iRepository: IRepository;
-    lateinit var demo: MutableLiveData<String>;
+    lateinit var edtContent: MutableLiveData<String>;
+    lateinit var submitContent: MutableLiveData<String>;
 
     constructor(iRepository: IRepository) : super() {
         this.iRepository = iRepository;
@@ -14,6 +16,12 @@ class Main2ViewModel : BaseViewModel {
 
     override fun initData() {
         super.initData()
-        demo = MutableLiveData();
+        edtContent = MutableLiveData();
+        submitContent = MutableLiveData();
+    }
+
+    fun clickSubmit() {
+        Log.e("TAG", "clickSubmit: ")
+        submitContent.postValue(edtContent.value);
     }
 }

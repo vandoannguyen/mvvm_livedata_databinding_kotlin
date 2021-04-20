@@ -20,13 +20,12 @@ class MainViewModel : BaseViewModel {
     private val TAG: String = "MainViewModel";
     var repositoryImpl: IRepository;
 
-
     @Inject
     constructor(repositoryImpl: IRepository) : super() {
         this.repositoryImpl = repositoryImpl;
     };
     lateinit var listUser: MutableLiveData<List<User>>
-    lateinit var dem: MutableLiveData<Int>;
+    lateinit var dem: MutableLiveData<String>;
     fun getData() {
         repositoryImpl.getUsers()
             .subscribeOn(Schedulers.io())
@@ -65,53 +64,13 @@ class MainViewModel : BaseViewModel {
                     Log.e(TAG, "onComplete: ")
                 }
 
-            })
-//        repositoryImpl.run {
-//            insertUser(UserLocal(null, "${Calendar.getInstance().timeInMillis}"))
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(object : CompletableObserver {
-//                    override fun onSubscribe(d: Disposable?) {
-//                        if (d != null) {
-//                            addDisposable(d)
-//                        }
-//                    }
-//
-//                    override fun onComplete() {
-//                        getUser()
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe(object : SingleObserver<List<UserLocal>> {
-//                                override fun onSubscribe(d: Disposable?) {
-//                                    if (d != null) {
-//                                        addDisposable(d)
-//                                    };
-//                                }
-//
-//                                override fun onSuccess(t: List<UserLocal>?) {
-//                                    listUser.postValue(
-//                                        t
-//                                    )
-//                                }
-//
-//                                override fun onError(e: Throwable?) {
-//                                    Log.e("11111111111111111111111", "onError: " + e)
-//                                }
-//
-//                            })
-//                    }
-//
-//                    override fun onError(e: Throwable?) {
-//                        Log.e("123456789", "onError: " + e)
-//                    }
-//
-//                })
-//
-//        }a
+            });
     }
 
     fun clickList() {
-        getData();
+//        getData();
+        Log.e(TAG, "clickList: ")
+        changeScreen.postValue(MainActivity2::class.java)
     }
 
     private fun getRamdomtext(): Int? {
@@ -122,6 +81,11 @@ class MainViewModel : BaseViewModel {
         super.initData()
         dem = MutableLiveData();
         listUser = MutableLiveData()
-        dem.postValue(1);
+        dem.postValue("1");
+    }
+
+    fun postSubmit(data: String) {
+        Log.e(TAG, "postSubmit: " + "")
+        dem.postValue(data);
     }
 }
