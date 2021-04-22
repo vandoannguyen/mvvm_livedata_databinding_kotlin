@@ -6,30 +6,23 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.dagger_kotlin_retrofit.BR
 import com.example.dagger_kotlin_retrofit.MyApplication
 import com.example.dagger_kotlin_retrofit.common.DialogLoading
-import com.example.dagger_kotlin_retrofit.data.RepositoryImpl
 import com.example.dagger_kotlin_retrofit.di.component.ActivityComponent
-import com.example.dagger_kotlin_retrofit.di.component.ApplicationComponent
 import com.example.dagger_kotlin_retrofit.di.component.DaggerActivityComponent
-import com.example.dagger_kotlin_retrofit.di.component.DaggerFragmentComponent
 import com.example.dagger_kotlin_retrofit.di.module.ActivityModule
-import com.example.dagger_kotlin_retrofit.ui.main.MainViewModel
-import dagger.android.DaggerActivity
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompatActivity() {
     val TAG: String = "BaseActivity";
-
-    @Inject
-    lateinit var viewModel: VM;
+    var viewModel: VM by viewModels<VM>();
     lateinit var binding: BD;
     var layoutView: Int = -1;
     var dialogLoading: DialogLoading? = null;
@@ -42,8 +35,8 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
 
     override fun onResume() {
         super.onResume()
-        performDependencyInjection(getActivityComponent());
     }
+
     fun initDataBinding() {
         layoutView = setContentLayout();
         binding = DataBindingUtil.setContentView(this, this.layoutView);
@@ -60,7 +53,7 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
     open fun initEventModel() {
         viewModel.changeScreen.observe(this, Observer { screen ->
             run {
-                Log.e(TAG, "initEventModel:changeScreen " )
+                Log.e(TAG, "initEventModel:changeScreen ")
                 startActivity(Intent(this, screen));
             }
         })

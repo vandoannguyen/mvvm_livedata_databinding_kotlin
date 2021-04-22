@@ -10,47 +10,36 @@ import com.example.dagger_kotlin_retrofit.data.local.LocalDataBase
 import com.example.dagger_kotlin_retrofit.data.local.LocalDataHelperImpl
 import com.example.dagger_kotlin_retrofit.data.network.ApiHelperImpl
 import com.example.dagger_kotlin_retrofit.data.network.IApiHelper
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
-class ApplicationModule {
+@InstallIn(SingletonComponent::class)
+abstract class ApplicationModule {
     private var myapplication: MyApplication
 
     constructor(myApplication: MyApplication) {
         this.myapplication = myApplication;
     }
 
-    @Provides
-    @Singleton
-    fun providerContext(): Context {
-        return myapplication;
-    }
+    @Binds
+    abstract fun providerContext(): Context;
+
+    @Binds
+    abstract fun providerRepository(
+        iRepository: IRepository
+    ): RepositoryImpl;
+
+    @Binds
+    abstract fun providerApiHelper(iApiHelper: IApiHelper): ApiHelperImpl;
+
+    @Binds
+    abstract fun providerLocalHelper(iLocalDataHelper: ILocalDataHelper): LocalDataHelperImpl;
 
     @Provides
-    @Singleton
-    fun providerRepository(
-        iApiHelper: IApiHelper,
-        iLocalDataHelper: ILocalDataHelper
-    ): IRepository {
-        return RepositoryImpl(iApiHelper, iLocalDataHelper);
-    }
-
-    @Provides
-    @Singleton
-    fun providerApiHelper(): IApiHelper {
-        return ApiHelperImpl();
-    }
-
-    @Provides
-    @Singleton
-    fun providerLocalHelper(context: Context): ILocalDataHelper {
-        return LocalDataHelperImpl(context);
-    }
-
-    @Provides
-    @Singleton
     fun providerLocalDatabase(context: Context, databaseName: String): LocalDataBase {
         return Room.databaseBuilder(
             context, LocalDataBase::class.java, databaseName
@@ -58,7 +47,6 @@ class ApplicationModule {
     }
 
     @Provides
-    @Singleton
     fun provideDatabaseName(): String? {
         return LocalDataBase.DATA_BASE_NAME
     }

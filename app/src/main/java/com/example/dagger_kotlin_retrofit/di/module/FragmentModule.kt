@@ -10,8 +10,11 @@ import com.example.dagger_kotlin_retrofit.ui.main2.fragment2.Fragment2ViewModel
 import com.example.dagger_kotlin_retrofit.ui.main2.fragment3.Fragment3ViewModel
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 
 @Module
+@InstallIn(ActivityComponent::class)
 class FragmentModule {
     private var baseFragment: BaseFragment<*, *>;
 

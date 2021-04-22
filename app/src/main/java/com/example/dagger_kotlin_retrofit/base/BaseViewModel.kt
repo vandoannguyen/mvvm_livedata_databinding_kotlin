@@ -2,10 +2,14 @@ package com.example.dagger_kotlin_retrofit.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
+import javax.inject.Inject
 
+@HiltViewModel
 open class BaseViewModel : ViewModel {
+    @Inject
     constructor() : super() {
         initData();
     }
