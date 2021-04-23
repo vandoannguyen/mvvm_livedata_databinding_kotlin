@@ -4,15 +4,14 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.dagger_kotlin_retrofit.base.BaseViewModel
 import com.example.dagger_kotlin_retrofit.data.IRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class Main2ViewModel : BaseViewModel {
-    var iRepository: IRepository;
+@HiltViewModel
+class Main2ViewModel @Inject constructor(private val iRepository: IRepository) : BaseViewModel() {
     lateinit var edtContent: MutableLiveData<String>;
     lateinit var submitContent: MutableLiveData<String>;
 
-    constructor(iRepository: IRepository) : super() {
-        this.iRepository = iRepository;
-    }
 
     override fun initData() {
         super.initData()

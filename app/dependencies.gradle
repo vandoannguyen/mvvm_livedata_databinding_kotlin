@@ -1,0 +1,27 @@
+ext {
+    versions = [
+            // For project configuration
+            java          : JavaVersion.VERSION_1_8,
+            minSdk        : 21,
+            compileSdk    : 30,
+            targetSdk     : 30,
+            buildTools    : '30.0.2',
+            versionCode   : 1,
+            versionName   : '1.0.0',
+//            app
+            kotlin_version: "1.4.21",
+            hilt_version  : "2.33-beta",
+            rx            : "3.0.0",
+
+
+    ]
+    lib = [
+            kotlin      : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin_version}",
+//            rx
+            rx_java     : "io.reactivex.rxjava3:rxandroid:${versions.rx}",
+            rx_android  : "io.reactivex.rxjava3:rxjava:${versions.rx}",
+//            hilt
+            hilt        : "com.google.dagger:hilt-android:$versions.hilt_version",
+            hiltCompiler: "com.google.dagger:hilt-android-compiler:$versions.hilt_version",
+    ]
+}

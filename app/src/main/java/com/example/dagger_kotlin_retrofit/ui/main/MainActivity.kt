@@ -1,25 +1,22 @@
 package com.example.dagger_kotlin_retrofit.ui.main
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseActivity
 import com.example.dagger_kotlin_retrofit.data.mode.network.User
 import com.example.dagger_kotlin_retrofit.databinding.ActivityMainBinding
-import com.example.dagger_kotlin_retrofit.di.component.ActivityComponent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
-    private lateinit var loadDialog: ProgressDialog;
     private var list: List<User> = ArrayList();
     private lateinit var adapter: TestAdapter;
-
-//    val mainViewModel: MainViewModel by viewModels<MainViewModel>();
+    private val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecyclerView();
@@ -46,7 +43,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         })
     }
 
-    override fun performDependencyInjection(activityComponent: ActivityComponent) {
-        activityComponent.inject(this);
+    override fun getVM(): MainViewModel {
+        return viewModel;
     }
+
+    override val setContentLayout: Int = R.layout.activity_main
+
 }

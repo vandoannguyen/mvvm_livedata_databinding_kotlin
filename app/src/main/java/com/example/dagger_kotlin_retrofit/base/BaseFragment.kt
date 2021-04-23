@@ -7,46 +7,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.dagger_kotlin_retrofit.BR
-import com.example.dagger_kotlin_retrofit.MyApplication
-import com.example.dagger_kotlin_retrofit.di.component.DaggerFragmentComponent
-import com.example.dagger_kotlin_retrofit.di.component.FragmentComponent
-import com.example.dagger_kotlin_retrofit.di.module.FragmentModule
-import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragment() {
     lateinit var binding: BD;
     private val TAG = "BaseFragment";
-
-    @Inject
-    lateinit var viewModel: VM;
-    override fun onCreate(savedInstanceState: Bundle?) {
-        performDependencyInjection(getFragmentComponent());
-        super.onCreate(savedInstanceState)
-    }
-
-    abstract fun performDependencyInjection(fragmentComponent: FragmentComponent)
-
-    private fun getFragmentComponent(): FragmentComponent {
-        return DaggerFragmentComponent.builder()
-            .applicationComponent((activity?.application as MyApplication).applicationComponent)
-            .fragmentModule(FragmentModule(this))
-            .build();
-    }
-
+    private lateinit var viewModel: VM;
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = getVM();
         initDataBinding(inflater, container);
         return binding.root;
     }
 
+    @get: LayoutRes
+    abstract val setContentLayout: Int
+    abstract fun getVM(): VM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initEventModel();
@@ -54,7 +38,7 @@ abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragme
 
 
     fun initDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
-        binding = DataBindingUtil.inflate(inflater, createContentView(), container, false);
+        binding = DataBindingUtil.inflate(inflater, setContentLayout, container, false);
         binding.setVariable(BR.viewModel, viewModel);
         binding.setLifecycleOwner(this);
         binding.executePendingBindings();
@@ -77,11 +61,4 @@ abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragme
             }
         })
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        BaseViewModelFactory.removeViewModel(viewModel)
-    }
-
-    abstract fun createContentView(): Int;
 }

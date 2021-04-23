@@ -16,6 +16,7 @@ import javax.inject.Inject
     version = 1,
     exportSchema = true
 )
+
 abstract class LocalDataBase : RoomDatabase() {
     abstract fun getUserDAO(): UserDAO;
     abstract fun getCountryDAO(): CountryDAO;

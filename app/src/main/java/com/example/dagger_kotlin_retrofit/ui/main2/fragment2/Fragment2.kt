@@ -1,31 +1,19 @@
 package com.example.dagger_kotlin_retrofit.ui.main2.fragment2
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseFragment
 import com.example.dagger_kotlin_retrofit.databinding.Fragment2Binding
-import com.example.dagger_kotlin_retrofit.di.component.FragmentComponent
 import com.example.dagger_kotlin_retrofit.ui.main2.Main2ViewModel
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class Fragment2 : BaseFragment<Fragment2ViewModel, Fragment2Binding>() {
-    var activityViewModel: Main2ViewModel? = null;
-    override fun performDependencyInjection(fragmentComponent: FragmentComponent) {
-        fragmentComponent.inject(this);
-        activityViewModel = activity?.let { ViewModelProvider(it).get(Main2ViewModel::class.java) };
-    }
-
-    override fun createContentView(): Int {
-        return R.layout.fragment_2
-    }
+    private val viewModel by viewModels<Fragment2ViewModel>()
+    private val activityViewModel by activityViewModels<Main2ViewModel>();
 
     override fun initEventModel() {
         super.initEventModel()
@@ -34,4 +22,10 @@ class Fragment2 : BaseFragment<Fragment2ViewModel, Fragment2Binding>() {
             findNavController().navigate(R.id.action_fragment2_to_fragment3);
         })
     }
+
+    override fun getVM(): Fragment2ViewModel {
+        return viewModel;
+    }
+
+    override val setContentLayout: Int = R.layout.fragment_2;
 }

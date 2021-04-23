@@ -6,28 +6,23 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.example.dagger_kotlin_retrofit.BR
-import com.example.dagger_kotlin_retrofit.MyApplication
 import com.example.dagger_kotlin_retrofit.common.DialogLoading
-import com.example.dagger_kotlin_retrofit.di.component.ActivityComponent
-import com.example.dagger_kotlin_retrofit.di.component.DaggerActivityComponent
-import com.example.dagger_kotlin_retrofit.di.module.ActivityModule
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompatActivity() {
     val TAG: String = "BaseActivity";
-    var viewModel: VM by viewModels<VM>();
+    private lateinit var viewModel: VM;
     lateinit var binding: BD;
-    var layoutView: Int = -1;
+
+    abstract val setContentLayout: Int
     var dialogLoading: DialogLoading? = null;
     override fun onCreate(savedInstanceState: Bundle?) {
-        performDependencyInjection(getActivityComponent());
         super.onCreate(savedInstanceState)
         initDataBinding();
         initEventModel();
@@ -38,11 +33,13 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
     }
 
     fun initDataBinding() {
-        layoutView = setContentLayout();
-        binding = DataBindingUtil.setContentView(this, this.layoutView);
+        binding = DataBindingUtil.setContentView(this, setContentLayout);
         binding.lifecycleOwner = this;
+        viewModel = getVM();
         binding.setVariable(BR.viewModel, viewModel);
     }
+
+    abstract fun getVM(): VM;
 
     open fun isNetworkConnected(): Boolean {
         val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -58,7 +55,6 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
             }
         })
         viewModel.showMess.observe(this, Observer { mess ->
-
             run {
                 Toast.makeText(this, mess, Toast.LENGTH_SHORT);
             }
@@ -78,16 +74,4 @@ abstract class BaseActivity<VM : BaseViewModel, BD : ViewDataBinding> : AppCompa
             }
         })
     };
-    private fun getActivityComponent(): ActivityComponent {
-        return DaggerActivityComponent.builder()
-            .applicationComponent((application as MyApplication).applicationComponent)
-            .activityModule(ActivityModule(this))
-            .build();
-    }
-
-    abstract fun performDependencyInjection(activityComponent: ActivityComponent);
-    override fun onDestroy() {
-        super.onDestroy()
-        BaseViewModelFactory.removeViewModel(viewModel)
-    }
 }
