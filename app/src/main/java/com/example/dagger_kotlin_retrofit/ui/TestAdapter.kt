@@ -1,11 +1,10 @@
-package com.example.dagger_kotlin_retrofit.ui.main
+package com.example.dagger_kotlin_retrofit.ui
 
 import android.util.Log
 import android.view.View
 import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseAdapter
 import com.example.dagger_kotlin_retrofit.base.BaseHolder
-import com.example.dagger_kotlin_retrofit.data.mode.local.UserLocal
 import com.example.dagger_kotlin_retrofit.data.mode.network.User
 import kotlinx.android.synthetic.main.itemtest.view.*
 

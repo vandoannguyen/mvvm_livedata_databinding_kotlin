@@ -9,12 +9,15 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dagger_kotlin_retrofit.BR
 import com.example.dagger_kotlin_retrofit.MyApplication
 import com.example.dagger_kotlin_retrofit.di.component.DaggerFragmentComponent
 import com.example.dagger_kotlin_retrofit.di.component.FragmentComponent
 import com.example.dagger_kotlin_retrofit.di.module.FragmentModule
+import com.example.dagger_kotlin_retrofit.ui.MainViewModel
 import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragment() {
@@ -22,6 +25,8 @@ abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragme
 
     @Inject
     lateinit var viewModel: VM;
+
+    val mainViewModel: MainViewModel by activityViewModels();
     override fun onCreate(savedInstanceState: Bundle?) {
         performDependencyInjection(getFragmentComponent());
         super.onCreate(savedInstanceState)
@@ -52,8 +57,12 @@ abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragme
 
 
     fun initDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
-        binding = DataBindingUtil.inflate(inflater, createContentView(), container, false);
+        binding = DataBindingUtil.inflate(
+            inflater, createContentView(), container,
+            false
+        );
         binding.setVariable(BR.viewModel, viewModel);
+        binding.setVariable(BR.mainViewModel, mainViewModel);
         binding.setLifecycleOwner(this);
         binding.executePendingBindings();
     }
@@ -78,7 +87,6 @@ abstract class BaseFragment<VM : BaseViewModel, BD : ViewDataBinding>() : Fragme
 
     override fun onDestroy() {
         super.onDestroy()
-        BaseViewModelFactory.removeViewModel(viewModel)
     }
 
     abstract fun createContentView(): Int;

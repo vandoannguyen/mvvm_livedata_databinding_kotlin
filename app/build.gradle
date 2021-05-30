@@ -6,7 +6,6 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
     buildFeatures {
-
         dataBinding true
 
         viewBinding {
@@ -32,12 +31,15 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     buildTypes {
         release {
@@ -62,6 +64,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     kapt 'com.android.databinding:compiler:3.1.2'
+    implementation("com.android.support:multidex:1.0.3")
 //    recycelrView
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     def lifecycle_version = "2.2.0"
@@ -84,4 +87,9 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+//    navigation
+    def nav_version = "2.3.5"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+//    implementation project(':ratingdialog')
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.example.dagger_kotlin_retrofit.ui.MainViewModel" />
+        <variable
+            name="viewModel"
+            type="com.example.dagger_kotlin_retrofit.ui.load_fragment.LoadFragmentViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.load_fragment.LoadFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.clickMe()}"
+                android:text="@string/hello_blank_fragment" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.clickToast()}"
+                android:text="@string/hello_blank_fragment" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

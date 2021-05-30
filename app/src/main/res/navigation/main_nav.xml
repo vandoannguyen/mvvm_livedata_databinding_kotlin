@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav"
+    app:startDestination="@id/loadFragment">
+
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.dagger_kotlin_retrofit.ui.blank_fragment.BlankFragment"
+        android:label="BlankFragment" />
+    <fragment
+        android:id="@+id/loadFragment"
+        android:name="com.example.dagger_kotlin_retrofit.ui.load_fragment.LoadFragment"
+        android:label="LoadFragment" >
+        <action
+            android:id="@+id/intentToBlank"
+            app:destination="@id/blankFragment" />
+    </fragment>
+</navigation>

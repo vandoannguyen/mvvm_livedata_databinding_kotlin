@@ -1,40 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout>
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.example.dagger_kotlin_retrofit.ui.main.MainViewModel" />
+            type="com.example.dagger_kotlin_retrofit.ui.MainViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
-        tools:context=".ui.main.MainActivity">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtDem"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.dem.toString()}" />
-
-        <Button
-            android:id="@+id/btnShow"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:onClick="@{()->viewModel.clickList()}"
-            android:text="Button" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:itemCount="10"
-            tools:listitem="@layout/itemtest" />
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/main_nav" />
     </LinearLayout>
 </layout>

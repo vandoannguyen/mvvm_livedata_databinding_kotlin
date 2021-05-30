@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
         <variable
+            name="mainViewModel"
+            type="com.example.dagger_kotlin_retrofit.ui.MainViewModel" />
+        <variable
             name="viewModel"
-            type="com.example.dagger_kotlin_retrofit.ui.main2.fragment.BlankViewModel" />
+            type="com.example.dagger_kotlin_retrofit.ui.blank_fragment.BlankViewModel" />
     </data>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main2.fragment.BlankFragment">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
+            android:id="@+id/txtDem"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.dem.toString()}" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/btnShow"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:onClick="@{()->viewModel.clickList()}"
+            android:text="Button" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:itemCount="10"
+            tools:listitem="@layout/itemtest" />
+    </LinearLayout>
 </layout>

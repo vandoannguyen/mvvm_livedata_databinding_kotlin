@@ -2,14 +2,12 @@ package com.example.dagger_kotlin_retrofit.di.module
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.dagger_kotlin_retrofit.base.BaseFragment
-import com.example.dagger_kotlin_retrofit.base.BaseViewModel
 import com.example.dagger_kotlin_retrofit.base.BaseViewModelFactory
 import com.example.dagger_kotlin_retrofit.data.IRepository
-import com.example.dagger_kotlin_retrofit.ui.main.MainViewModel
-import com.example.dagger_kotlin_retrofit.ui.main2.fragment.BlankFragment
-import com.example.dagger_kotlin_retrofit.ui.main2.fragment.BlankViewModel
+import com.example.dagger_kotlin_retrofit.ui.blank_fragment.BlankViewModel
+import com.example.dagger_kotlin_retrofit.ui.load_fragment.LoadFragment
+import com.example.dagger_kotlin_retrofit.ui.load_fragment.LoadFragmentViewModel
 import dagger.Module
 import dagger.Provides
 
@@ -27,6 +25,13 @@ class FragmentModule {
             baseFragment,
             BaseViewModelFactory<BlankViewModel>(BlankViewModel(iRepository))
         ).get(BlankViewModel::class.java)
+    }
+    @Provides
+    fun providerLoadFragment(iRepository: IRepository):LoadFragmentViewModel{
+        return ViewModelProvider(
+            baseFragment,
+            BaseViewModelFactory<LoadFragmentViewModel>(LoadFragmentViewModel(iRepository))
+        ).get(LoadFragmentViewModel::class.java)
     }
 
     @Provides
