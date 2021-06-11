@@ -1,4 +1,4 @@
-package com.example.dagger_kotlin_retrofit.ui.main2.fragment1
+package com.example.dagger_kotlin_retrofit.ui.main2.load_data
 
 import androidx.lifecycle.MutableLiveData
 import com.example.dagger_kotlin_retrofit.R
@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class Fragment1ViewModel @Inject constructor(private val iRepository: IRepository) :
+class LoadViewModel @Inject constructor(private val iRepository: IRepository) :
     BaseViewModel() {
     lateinit var contentText: MutableLiveData<String>;
     lateinit var changeFragment: MutableLiveData<Int>;

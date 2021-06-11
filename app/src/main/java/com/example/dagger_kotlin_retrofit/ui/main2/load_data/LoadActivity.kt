@@ -1,4 +1,4 @@
-package com.example.dagger_kotlin_retrofit.ui.main2.fragment1
+package com.example.dagger_kotlin_retrofit.ui.main2.load_data
 
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -11,8 +11,8 @@ import com.example.dagger_kotlin_retrofit.ui.main2.Main2ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_fragmenet1.*
 @AndroidEntryPoint
-class Fragment1 : BaseFragment<Fragment1ViewModel, FragmentFragmenet1Binding>() {
-    private val viewModel by viewModels<Fragment1ViewModel>();
+class LoadActivity : BaseFragment<LoadViewModel, FragmentFragmenet1Binding>() {
+    private val viewModel by viewModels<LoadViewModel>();
     private val activityViewModel by activityViewModels<Main2ViewModel>();
     override fun initEventModel() {
         super.initEventModel()
@@ -26,7 +26,7 @@ class Fragment1 : BaseFragment<Fragment1ViewModel, FragmentFragmenet1Binding>() 
             })
     }
 
-    override fun getVM(): Fragment1ViewModel = viewModel
+    override fun getVM(): LoadViewModel = viewModel
 
     override val setContentLayout: Int = R.layout.fragment_fragmenet1;
 }

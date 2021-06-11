@@ -6,11 +6,12 @@ import com.example.dagger_kotlin_retrofit.R
 import com.example.dagger_kotlin_retrofit.base.BaseActivity
 import com.example.dagger_kotlin_retrofit.databinding.ActivityMain3Binding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+
 @AndroidEntryPoint
 class MainActivity2 : BaseActivity<Main2ViewModel, ActivityMain3Binding>() {
     private val viewModel: Main2ViewModel by viewModels();
-//    lateinit var mainViewModel by ;
+
+    //    lateinit var mainViewModel by ;
     override fun setContentLayout(): Int {
         return R.layout.activity_main3;
     }

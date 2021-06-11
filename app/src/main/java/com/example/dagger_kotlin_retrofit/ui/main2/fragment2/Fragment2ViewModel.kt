@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.dagger_kotlin_retrofit.base.BaseViewModel
 import com.example.dagger_kotlin_retrofit.data.IRepository
 import com.example.dagger_kotlin_retrofit.ui.main2.Main2ViewModel
-import com.example.dagger_kotlin_retrofit.ui.main2.fragment1.Fragment1ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
